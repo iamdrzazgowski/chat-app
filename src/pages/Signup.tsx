@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Logo from '../components/Logo';
 import SignupForm from '../features/authentication/SignupForm';
 
@@ -9,7 +7,7 @@ export default function Signup() {
             <div className='bg-white rounded-2xl px-8 py-6 flex flex-col gap-6 shadow-lg'>
                 <Logo />
 
-                <h1 className='text-2xl font-semibold text-gray-800 text-center'>
+                <h1 className='text-1xl font-semibold text-gray-800 text-center'>
                     Create your account
                 </h1>
 

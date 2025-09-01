@@ -1,10 +1,32 @@
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useSignup } from './useSignup';
+import type { SignupFormFields } from '../../types/api';
+
 const inputStyle =
     'border border-gray-300 bg-gray-50 rounded-md shadow-sm px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500';
 const box = 'flex flex-col gap-1';
 
 export default function SignupForm() {
+    const { register, handleSubmit, getValues, reset, formState } =
+        useForm<SignupFormFields>();
+    // const { errors } = formState;
+    const { signup, isLoading } = useSignup();
+
+    const onSubmit: SubmitHandler<SignupFormFields> = ({
+        email,
+        password,
+        fullName,
+    }) => {
+        signup(
+            { email, password, fullName },
+            {
+                onSettled: () => reset(),
+            }
+        );
+    };
+
     return (
-        <form className='flex flex-col gap-4'>
+        <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
             <div className={box}>
                 <label
                     htmlFor='fullName'
@@ -15,7 +37,10 @@ export default function SignupForm() {
                     className={inputStyle}
                     id='fullName'
                     type='text'
-                    required
+                    {...register('fullName', {
+                        required: 'This field is required',
+                    })}
+                    disabled={isLoading}
                 />
             </div>
 
@@ -27,7 +52,14 @@ export default function SignupForm() {
                     className={inputStyle}
                     id='email'
                     type='email'
-                    required
+                    {...register('email', {
+                        required: 'This field is required',
+                        pattern: {
+                            value: /\S+@\S+\.\S+/,
+                            message: 'Please provide a valid email address',
+                        },
+                    })}
+                    disabled={isLoading}
                 />
             </div>
 
@@ -41,21 +73,36 @@ export default function SignupForm() {
                     className={inputStyle}
                     id='password'
                     type='password'
-                    required
+                    {...register('password', {
+                        required: 'This field is required',
+                        minLength: {
+                            value: 8,
+                            message: 'Password needs a minimum of 8 characters',
+                        },
+                    })}
                 />
             </div>
 
             <div className={box}>
                 <label
-                    htmlFor='repeatPassword'
+                    htmlFor='passwordConfirm'
                     className='text-sm text-gray-700 mb-1'>
                     Repeat Password
                 </label>
                 <input
                     className={inputStyle}
-                    id='repeatPassword'
+                    id='passwordConfirm'
                     type='password'
-                    required
+                    {...register('passwordConfirm', {
+                        required: 'This field is required',
+                        validate: (value) => {
+                            return (
+                                value === getValues().password ||
+                                'Passwords need to match'
+                            );
+                        },
+                    })}
+                    disabled={isLoading}
                 />
             </div>
 
