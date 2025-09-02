@@ -8,3 +8,8 @@ export type SignupFormFields = {
 export type ErrorProps = {
     message?: string;
 };
+
+export type LoginFormFields = {
+    email: string;
+    password: string;
+};
