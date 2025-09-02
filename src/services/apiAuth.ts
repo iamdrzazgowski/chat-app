@@ -1,4 +1,4 @@
-import type { SignupArgs } from '../types/api';
+import type { LoginArgs, SignupArgs } from '../types/api';
 import supabase from './supabaseClient';
 
 export async function signup({ email, password, fullName }: SignupArgs) {
@@ -20,4 +20,39 @@ export async function signup({ email, password, fullName }: SignupArgs) {
     if (userError) throw new Error(userError.message);
 
     return userProfile;
+}
+
+export async function login({ email, password }: LoginArgs) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+    });
+
+    if (error) throw new Error(error.message);
+
+    return data;
+}
+
+export async function getCurrentUser() {
+    const { data: session } = await supabase.auth.getSession();
+
+    if (!session.session) return null;
+
+    const userId = session?.session?.user?.id;
+    const isAuthenticated = session?.session?.user?.role;
+
+    const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+    if (error) throw new Error(error.message);
+
+    const userData = {
+        ...data,
+        isAuthenticated,
+    };
+
+    return userData;
 }

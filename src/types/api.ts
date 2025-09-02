@@ -3,3 +3,8 @@ export type SignupArgs = {
     password: string;
     fullName: string;
 };
+
+export type LoginArgs = {
+    email: string;
+    password: string;
+};

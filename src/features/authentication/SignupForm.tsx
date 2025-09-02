@@ -4,7 +4,7 @@ import type { SignupFormFields } from '../../types/form';
 import Error from '../../components/Error';
 
 const inputStyle =
-    'w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 max-[420px]:text-xs max-[420px]:py-1.5';
+    'w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 max-[420px]:text-xs max-[420px]:py-2';
 const box = 'flex flex-col gap-1 w-full';
 
 export default function SignupForm() {
@@ -28,7 +28,7 @@ export default function SignupForm() {
             <div className={box}>
                 <label
                     htmlFor='fullName'
-                    className='text-sm text-gray-700 mb-1 max-[420px]:text-xs'>
+                    className='text-sm text-gray-500 mb-1 max-[420px]:text-xs'>
                     Full Name
                 </label>
                 <input
@@ -48,7 +48,7 @@ export default function SignupForm() {
             <div className={box}>
                 <label
                     htmlFor='email'
-                    className='text-sm text-gray-700 mb-1 max-[420px]:text-xs'>
+                    className='text-sm text-gray-500 mb-1 max-[420px]:text-xs'>
                     Email
                 </label>
                 <input
@@ -72,7 +72,7 @@ export default function SignupForm() {
             <div className={box}>
                 <label
                     htmlFor='password'
-                    className='text-sm text-gray-700 mb-1 max-[420px]:text-xs'>
+                    className='text-sm text-gray-500 mb-1 max-[420px]:text-xs'>
                     Password
                 </label>
                 <input
@@ -96,7 +96,7 @@ export default function SignupForm() {
             <div className={box}>
                 <label
                     htmlFor='passwordConfirm'
-                    className='text-sm text-gray-700 mb-1 max-[420px]:text-xs'>
+                    className='text-sm text-gray-500 mb-1 max-[420px]:text-xs'>
                     Repeat Password
                 </label>
                 <input
@@ -118,7 +118,7 @@ export default function SignupForm() {
 
             <button
                 type='submit'
-                className='w-full mt-4 bg-blue-600 text-white py-3 rounded-lg cursor-pointer hover:bg-blue-700 shadow-sm font-medium text-base transition-colors disabled:opacity-50 disabled:cursor-not-allowed max-[420px]:py-2 max-[420px]:text-sm'>
+                className='w-full mt-4 bg-blue-600 text-white py-3 rounded-lg cursor-pointer hover:bg-blue-700 shadow-sm font-medium text-base transition-colors disabled:opacity-50 disabled:cursor-not-allowed max-[420px]:py-2.5 max-[420px]:text-sm'>
                 {isLoading ? 'Signing up...' : 'Sign Up'}
             </button>
         </form>
