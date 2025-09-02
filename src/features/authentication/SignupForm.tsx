@@ -1,36 +1,34 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useSignup } from './useSignup';
-import type { SignupFormFields } from '../../types/api';
+import type { SignupFormFields } from '../../types/form';
+import Error from '../../components/Error';
 
 const inputStyle =
-    'border border-gray-300 bg-gray-50 rounded-md shadow-sm px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500';
-const box = 'flex flex-col gap-1';
+    'w-full border border-gray-300 bg-gray-50 rounded-md shadow-sm px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 max-[420px]:text-xs max-[420px]:py-1.5';
+const box = 'flex flex-col gap-1 w-full';
 
 export default function SignupForm() {
     const { register, handleSubmit, getValues, reset, formState } =
         useForm<SignupFormFields>();
-    // const { errors } = formState;
     const { signup, isLoading } = useSignup();
+    const { errors } = formState;
 
     const onSubmit: SubmitHandler<SignupFormFields> = ({
         email,
         password,
         fullName,
     }) => {
-        signup(
-            { email, password, fullName },
-            {
-                onSettled: () => reset(),
-            }
-        );
+        signup({ email, password, fullName }, { onSettled: () => reset() });
     };
 
     return (
-        <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
+        <form
+            className='flex flex-col gap-4 w-full max-w-sm mx-auto px-4 max-[420px]:gap-3 max-[420px]:px-2'
+            onSubmit={handleSubmit(onSubmit)}>
             <div className={box}>
                 <label
                     htmlFor='fullName'
-                    className='text-sm text-gray-700 mb-1'>
+                    className='text-sm text-gray-700 mb-1 max-[420px]:text-xs'>
                     Full Name
                 </label>
                 <input
@@ -42,10 +40,15 @@ export default function SignupForm() {
                     })}
                     disabled={isLoading}
                 />
+                {errors?.fullName?.message && (
+                    <Error message={errors?.fullName?.message} />
+                )}
             </div>
 
             <div className={box}>
-                <label htmlFor='email' className='text-sm text-gray-700 mb-1'>
+                <label
+                    htmlFor='email'
+                    className='text-sm text-gray-700 mb-1 max-[420px]:text-xs'>
                     Email
                 </label>
                 <input
@@ -61,12 +64,15 @@ export default function SignupForm() {
                     })}
                     disabled={isLoading}
                 />
+                {errors?.email?.message && (
+                    <Error message={errors?.email?.message} />
+                )}
             </div>
 
             <div className={box}>
                 <label
                     htmlFor='password'
-                    className='text-sm text-gray-700 mb-1'>
+                    className='text-sm text-gray-700 mb-1 max-[420px]:text-xs'>
                     Password
                 </label>
                 <input
@@ -80,13 +86,17 @@ export default function SignupForm() {
                             message: 'Password needs a minimum of 8 characters',
                         },
                     })}
+                    disabled={isLoading}
                 />
+                {errors?.password?.message && (
+                    <Error message={errors?.password?.message} />
+                )}
             </div>
 
             <div className={box}>
                 <label
                     htmlFor='passwordConfirm'
-                    className='text-sm text-gray-700 mb-1'>
+                    className='text-sm text-gray-700 mb-1 max-[420px]:text-xs'>
                     Repeat Password
                 </label>
                 <input
@@ -95,21 +105,21 @@ export default function SignupForm() {
                     type='password'
                     {...register('passwordConfirm', {
                         required: 'This field is required',
-                        validate: (value) => {
-                            return (
-                                value === getValues().password ||
-                                'Passwords need to match'
-                            );
-                        },
+                        validate: (value) =>
+                            value === getValues().password ||
+                            'Passwords need to match',
                     })}
                     disabled={isLoading}
                 />
+                {errors?.passwordConfirm?.message && (
+                    <Error message={errors?.passwordConfirm?.message} />
+                )}
             </div>
 
             <button
                 type='submit'
-                className='w-full mt-4 bg-blue-600 text-white py-3 rounded-2xl cursor-pointer hover:bg-blue-700 shadow-sm font-medium text-base border-none transition-colors'>
-                Sign Up
+                className='w-full mt-4 bg-blue-600 text-white py-3 rounded-lg cursor-pointer hover:bg-blue-700 shadow-sm font-medium text-base transition-colors disabled:opacity-50 disabled:cursor-not-allowed max-[420px]:py-2 max-[420px]:text-sm'>
+                {isLoading ? 'Signing up...' : 'Sign Up'}
             </button>
         </form>
     );
