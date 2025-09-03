@@ -1,12 +1,13 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes } from 'react-router';
 import AppLayout from './components/AppLayout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Signup from './pages/Signup';
 import { Toaster } from 'react-hot-toast';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Login from './pages/Login';
-import Chat from './pages/Chat';
 import ProtectedRoute from './components/ProtectedRoute';
+import Chatroom from './features/chat/Chatroom';
+import EmptyChatroom from './features/chat/EmptyChatroom';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -28,8 +29,8 @@ function App() {
                                 <AppLayout />
                             </ProtectedRoute>
                         }>
-                        <Route index element={<Navigate replace to='chat' />} />
-                        <Route path='chat' element={<Chat />} />
+                        <Route index element={<EmptyChatroom />} />
+                        <Route path='chat/:chatId' element={<Chatroom />} />
                     </Route>
                     <Route path='login' element={<Login />} />
                     <Route path='signup' element={<Signup />} />
