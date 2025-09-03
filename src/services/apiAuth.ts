@@ -12,7 +12,7 @@ export async function signup({ email, password, fullName }: SignupArgs) {
     const { data: userProfile, error: userError } = await supabase
         .from('profiles')
         .insert({
-            user_id: data?.user?.id,
+            id: data?.user?.id,
             fullName,
             avatar: '',
         });
@@ -44,7 +44,7 @@ export async function getCurrentUser() {
     const { data, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('user_id', userId)
+        .eq('id', userId)
         .single();
 
     if (error) throw new Error(error.message);

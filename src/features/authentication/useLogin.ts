@@ -12,7 +12,7 @@ export default function useLogin() {
             loginApi({ email, password }),
         onSuccess: () => {
             toast.success('Successfuly log in');
-            navigate('/chat', { replace: true });
+            navigate('/', { replace: true });
         },
         onError: (err) => {
             console.log('ERROR', err.message);

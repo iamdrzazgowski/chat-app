@@ -7,8 +7,6 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
     const navigate = useNavigate();
     const { isLoading, user } = useUserProfile();
 
-    console.log(user);
-
     useEffect(() => {
         if (!isLoading && (!user || !user.isAuthenticated)) navigate('/login');
     }, [isLoading, navigate, user]);
