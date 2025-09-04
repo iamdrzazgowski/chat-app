@@ -3,6 +3,7 @@ import { LuUsers } from 'react-icons/lu';
 import FriendItem from './FriendItem';
 import Modal from '../../components/Modal';
 import AddFriend from './AddFriend';
+import { useGetFriends } from './useGetFriends';
 
 const tempFriends = [
     {
@@ -152,13 +153,17 @@ const tempFriends = [
 ];
 
 export default function FriendsList() {
+    const { isLoading, friends } = useGetFriends();
+
+    if (isLoading) return <p>Loading...</p>;
+
     return (
         <Modal>
             <div className='flex flex-col h-full'>
                 <div className='sticky top-0  px-4 py-1 z-10 flex items-center justify-between'>
                     <div className='flex items-center space-x-2 text-sm text-gray-600'>
                         <LuUsers className='w-5 h-5' />
-                        <span>Friends ({tempFriends.length})</span>
+                        <span>Friends ({friends?.length})</span>
                     </div>
                     <Modal.Open>
                         <button className='p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 cursor-pointer rounded-lg transition-colors'>
@@ -168,7 +173,7 @@ export default function FriendsList() {
                 </div>
 
                 <div className='flex-1 overflow-y-auto scrollbar-minimal space-y-1 p-2'>
-                    {tempFriends.map((friend) => (
+                    {friends?.map((friend) => (
                         <FriendItem key={friend.id} friend={friend} />
                     ))}
                 </div>

@@ -1,8 +1,15 @@
-export default function AddFriendItem({ friend }) {
+import useAddFriend from './useAddFriend';
+
+export default function AddFriendItem({ friend, onCloseModal }) {
+    const { addFriend, isLoading } = useAddFriend();
+
+    const handleClick = () => {
+        addFriend(friend.id);
+        onCloseModal();
+    };
+
     return (
-        <div
-            key={friend.id}
-            className='flex items-center justify-between p-2 rounded-lg  hover:bg-gray-50 transition mt-6 w-[300px]'>
+        <div className='flex items-center justify-between p-2 rounded-lg  hover:bg-gray-50 transition mt-6 w-[300px]'>
             <div className='flex items-center space-x-2'>
                 <img
                     src={friend.avatar_url || '/default-user.jpg'}
@@ -14,7 +21,10 @@ export default function AddFriendItem({ friend }) {
                 </h3>
             </div>
 
-            <button className='bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-blue-700 transition cursor-pointer'>
+            <button
+                className='bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-blue-700 transition cursor-pointer'
+                onClick={handleClick}
+                disabled={isLoading}>
                 Add
             </button>
         </div>
