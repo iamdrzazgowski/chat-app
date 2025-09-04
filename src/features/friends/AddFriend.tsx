@@ -3,7 +3,11 @@ import { HiMagnifyingGlass } from 'react-icons/hi2';
 import { useSearchFriends } from './useSearchFriends';
 import AddFriendItem from './AddFriendItem';
 
-export default function AddFriend() {
+interface AddFriendProps {
+    onCloseModal: () => void;
+}
+
+export default function AddFriend({ onCloseModal }: AddFriendProps) {
     const [search, setSearch] = useState('');
     const { data } = useSearchFriends(search);
 
@@ -23,7 +27,13 @@ export default function AddFriend() {
             </div>
             <div className='flex flex-col gap-2'>
                 {(data?.length ?? 0) > 0 &&
-                    data?.map((friend) => <AddFriendItem friend={friend} />)}
+                    data?.map((friend) => (
+                        <AddFriendItem
+                            friend={friend}
+                            key={friend.id}
+                            onCloseModal={onCloseModal}
+                        />
+                    ))}
             </div>
         </div>
     );
