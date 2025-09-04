@@ -39,7 +39,7 @@ export async function getCurrentUser() {
     if (!session.session) return null;
 
     const userId = session?.session?.user?.id;
-    const isAuthenticated = session?.session?.user?.role;
+    const isAuthenticated = session?.session?.user?.role === 'authenticated';
 
     const { data, error } = await supabase
         .from('profiles')

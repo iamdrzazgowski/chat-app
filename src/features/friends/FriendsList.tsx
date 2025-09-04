@@ -1,6 +1,8 @@
 import { FiUserPlus } from 'react-icons/fi';
 import { LuUsers } from 'react-icons/lu';
 import FriendItem from './FriendItem';
+import Modal from '../../components/Modal';
+import AddFriend from './AddFriend';
 
 const tempFriends = [
     {
@@ -151,22 +153,29 @@ const tempFriends = [
 
 export default function FriendsList() {
     return (
-        <div className='flex flex-col h-full'>
-            <div className='sticky top-0 bg-gray-50 px-4 py-1 z-10 flex items-center justify-between'>
-                <div className='flex items-center space-x-2 text-sm text-gray-600'>
-                    <LuUsers className='w-5 h-5' />
-                    <span>Friends ({tempFriends.length})</span>
+        <Modal>
+            <div className='flex flex-col h-full'>
+                <div className='sticky top-0  px-4 py-1 z-10 flex items-center justify-between'>
+                    <div className='flex items-center space-x-2 text-sm text-gray-600'>
+                        <LuUsers className='w-5 h-5' />
+                        <span>Friends ({tempFriends.length})</span>
+                    </div>
+                    <Modal.Open>
+                        <button className='p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 cursor-pointer rounded-lg transition-colors'>
+                            <FiUserPlus className='w-5 h-5' />
+                        </button>
+                    </Modal.Open>
                 </div>
-                <button className='p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 cursor-pointer rounded-lg transition-colors'>
-                    <FiUserPlus className='w-5 h-5' />
-                </button>
-            </div>
 
-            <div className='flex-1 overflow-y-auto scrollbar-minimal space-y-1 p-2'>
-                {tempFriends.map((friend) => (
-                    <FriendItem key={friend.id} friend={friend} />
-                ))}
+                <div className='flex-1 overflow-y-auto scrollbar-minimal space-y-1 p-2'>
+                    {tempFriends.map((friend) => (
+                        <FriendItem key={friend.id} friend={friend} />
+                    ))}
+                </div>
+                <Modal.Window>
+                    <AddFriend />
+                </Modal.Window>
             </div>
-        </div>
+        </Modal>
     );
 }
