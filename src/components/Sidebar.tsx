@@ -4,7 +4,7 @@ import Header from './Header';
 
 export default function Sidebar() {
     return (
-        <div className='flex flex-col h-full bg-gray-50'>
+        <div className='flex flex-col h-full bg-gray-200'>
             <Header />
             <div className='flex-1 flex flex-col min-h-0'>
                 <FriendsList />

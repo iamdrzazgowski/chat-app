@@ -4,7 +4,7 @@ import LoginForm from '../features/authentication/LoginForm';
 
 export default function Login() {
     return (
-        <main className='min-h-screen grid place-items-center bg-gray-100 p-4'>
+        <main className='min-h-screen grid place-items-center bg-gray-900 p-4'>
             <div className='w-full max-w-[420px] bg-white rounded-2xl px-8 py-6 flex flex-col gap-6 shadow-lg'>
                 <Logo />
 
