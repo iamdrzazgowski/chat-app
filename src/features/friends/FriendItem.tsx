@@ -1,6 +1,7 @@
 export default function FriendItem({ friend }) {
     return (
-        <div className='flex items-center space-x-2 p-2 rounded-lg cursor-pointer hover:bg-gray-50 transition'>
+        <div
+            className={`flex items-center space-x-2 p-2 rounded-lg cursor-pointer hover:bg-gray-50 transition `}>
             <img
                 src={friend?.avatar || '/default-user.jpg'}
                 alt={friend?.fullName}
@@ -10,7 +11,6 @@ export default function FriendItem({ friend }) {
                 <h3 className='text-sm font-medium text-gray-900 truncate'>
                     {friend?.fullName}
                 </h3>
-                <p className='text-xs text-gray-600 truncate'>test</p>
             </div>
         </div>
     );
