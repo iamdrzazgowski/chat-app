@@ -36,7 +36,7 @@ export async function login({ email, password }: LoginArgs) {
 export async function getCurrentUser() {
     const { data: session } = await supabase.auth.getSession();
 
-    if (!session.session) return null;
+    if (!session.session) throw new Error('No session');
 
     const userId = session?.session?.user?.id;
     const isAuthenticated = session?.session?.user?.role === 'authenticated';
