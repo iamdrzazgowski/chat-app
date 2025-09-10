@@ -1,7 +1,8 @@
-export default function FriendItem({ friend }) {
+export default function FriendItem({ friend, onClick }) {
     return (
-        <div
-            className={`flex items-center space-x-2 p-2 rounded-lg cursor-pointer hover:bg-gray-50 transition `}>
+        <li
+            className={`flex items-center space-x-2 p-2 rounded-lg cursor-pointer hover:bg-gray-50 transition `}
+            onClick={onClick}>
             <img
                 src={friend?.avatar || '/default-user.jpg'}
                 alt={friend?.fullName}
@@ -12,6 +13,6 @@ export default function FriendItem({ friend }) {
                     {friend?.fullName}
                 </h3>
             </div>
-        </div>
+        </li>
     );
 }

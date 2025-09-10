@@ -31,15 +31,15 @@ export default function FriendsList() {
                     </Modal.Open>
                 </div>
 
-                <div className='flex-1 overflow-y-auto scrollbar-minimal space-y-1 p-2'>
+                <ul className='flex-1 overflow-y-auto scrollbar-minimal space-y-1 p-2'>
                     {friends?.map((friend) => (
-                        <a
+                        <FriendItem
+                            friend={friend}
                             onClick={() => handleClick(friend.id)}
-                            key={friend.id}>
-                            <FriendItem friend={friend} />
-                        </a>
+                            key={friend.id}
+                        />
                     ))}
-                </div>
+                </ul>
                 <Modal.Window>
                     <AddFriend />
                 </Modal.Window>
