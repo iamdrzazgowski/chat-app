@@ -5,7 +5,7 @@ export default function CurrentUser() {
     const { user } = useUserProfile();
 
     return (
-        <div className='p-4 border-t border-gray-300 flex items-center justify-between mt-auto'>
+        <div className='h-16 w-full  border-t border-gray-300 px-4 flex items-center justify-between'>
             <div className='flex items-center space-x-2'>
                 <img
                     src={user?.avatar ? user.avatar : '/default-user.jpg'}
