@@ -51,3 +51,24 @@ export async function createOrGetChat(friendId: string) {
 
     return newChat.id;
 }
+
+export async function sendMessage(
+    userId: string,
+    chatId: string,
+    content: string
+) {
+    const { data, error } = await supabase
+        .from('messages')
+        .insert([
+            {
+                chat_id: chatId,
+                user_id: userId,
+                content,
+            },
+        ])
+        .select();
+
+    if (error) throw new Error(error.message);
+
+    return data;
+}

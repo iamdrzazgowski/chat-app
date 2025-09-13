@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { BsSend } from 'react-icons/bs';
+import useSendMessage from './useSendMessage';
 
 export default function SendMessage() {
     const [message, setMessage] = useState('');
+    const { sendMessage, isLoading } = useSendMessage();
 
     const handleSend = () => {
         if (message.trim()) {
-            console.log('Wiadomość:', message);
-            alert(`Wysłano: ${message}`);
+            sendMessage(message);
             setMessage('');
         }
     };
@@ -34,8 +35,8 @@ export default function SendMessage() {
                 </div>
                 <button
                     onClick={handleSend}
-                    disabled={!message.trim()}
-                    className={`p-2 rounded-full transition-all duration-200 ${
+                    disabled={!message.trim() || isLoading}
+                    className={`p-2 rounded-full transition-all duration-200 cursor-pointer ${
                         message.trim()
                             ? 'bg-blue-500 text-white hover:bg-blue-600 shadow-lg'
                             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
