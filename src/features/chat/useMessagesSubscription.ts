@@ -22,14 +22,33 @@ export function useMessagesSubscription(chatId: string) {
                     table: 'messages',
                     filter: `chat_id=eq.${chatId}`,
                 },
-                (payload) => {
+                async (payload) => {
+                    // 1. Pobieramy profil dla nowej wiadomości
+                    const { data: profile, error: profileError } =
+                        await supabase
+                            .from('profiles')
+                            .select('*')
+                            .eq('id', payload.new.user_id)
+                            .single();
+
+                    if (profileError) {
+                        console.error('Błąd pobierania profilu:', profileError);
+                    }
+
+                    // 2. Łączymy wiadomość z profilem
+                    const messageWithProfile = {
+                        ...payload.new,
+                        profile: profile || null,
+                    };
+
+                    // 3. Aktualizujemy cache React Query
                     queryClient.setQueryData(
                         ['messages', chatId],
-                        (old: any[] = []) => [...old, payload.new]
+                        (old: any[] = []) => [...old, messageWithProfile]
                     );
                 }
             )
-            .subscribe();
+            .subscribe((status) => console.log('Status kanału:', status));
 
         return () => {
             supabase.removeChannel(subscription);

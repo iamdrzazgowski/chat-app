@@ -74,12 +74,30 @@ export async function sendMessage(
 }
 
 export async function fetchMessages(chatId: string) {
-    const { data, error } = await supabase
+    // 1. Pobieramy wiadomości
+    const { data: messages, error: messagesError } = await supabase
         .from('messages')
         .select('*')
         .eq('chat_id', chatId)
         .order('created_at', { ascending: true });
 
-    if (error) throw error;
-    return data;
+    if (messagesError) throw messagesError;
+    if (!messages) return [];
+
+    // 2. Pobieramy profile dla wszystkich user_id z wiadomości
+    const userIds = [...new Set(messages.map((m) => m.user_id))];
+    const { data: profiles, error: profilesError } = await supabase
+        .from('profiles')
+        .select('*')
+        .in('id', userIds);
+
+    if (profilesError) throw profilesError;
+
+    // 3. Łączymy wiadomości z profilem
+    const messagesWithProfiles = messages.map((message) => ({
+        ...message,
+        profile: profiles.find((p) => p.id === message.user_id) || null,
+    }));
+
+    return messagesWithProfiles;
 }
