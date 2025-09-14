@@ -44,6 +44,7 @@ export function useMessagesSubscription(chatId: string) {
                     // 3. Aktualizujemy cache React Query
                     queryClient.setQueryData(
                         ['messages', chatId],
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         (old: any[] = []) => [...old, messageWithProfile]
                     );
                 }

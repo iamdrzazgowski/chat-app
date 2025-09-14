@@ -41,7 +41,11 @@ export default function FriendsList() {
                     ))}
                 </ul>
                 <Modal.Window>
-                    <AddFriend />
+                    <AddFriend
+                        onCloseModal={function (): void {
+                            throw new Error('Function not implemented.');
+                        }}
+                    />
                 </Modal.Window>
             </div>
         </Modal>
