@@ -67,3 +67,9 @@ The application has been tested with the following environment:
     ```
 
 ---
+
+## 🖼️ Screenshots
+
+![Image](https://github.com/user-attachments/assets/ff84de0d-78d8-44c4-97c1-0735ee2c21b2)
+![Image](https://github.com/user-attachments/assets/d7cef676-71cb-4c79-b72b-71ecfa245ff7)
+![Image](https://github.com/user-attachments/assets/f96f736c-c3f6-45ae-b134-84be5f71f3c1)
