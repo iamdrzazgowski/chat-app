@@ -4,7 +4,6 @@ export default function MessageBubble({
     message,
     isCurrentUser,
 }: MessageBubbleProps) {
-    console.log(message, isCurrentUser);
     return (
         <div
             className={`flex mb-4 ${
