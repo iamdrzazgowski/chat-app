@@ -1,4 +1,15 @@
-export default function FriendItem({ friend, onClick }) {
+interface Friend {
+    avatar?: string;
+    fullName: string;
+    // add other friend properties if needed
+}
+
+interface FriendItemProps {
+    friend: Friend;
+    onClick: React.MouseEventHandler<HTMLLIElement>;
+}
+
+export default function FriendItem({ friend, onClick }: FriendItemProps) {
     return (
         <li
             className={`flex items-center space-x-2 p-2 rounded-lg cursor-pointer hover:bg-gray-50 transition `}

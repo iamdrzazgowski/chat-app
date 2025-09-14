@@ -3,7 +3,7 @@ import AppLayout from './components/AppLayout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Signup from './pages/Signup';
 import { Toaster } from 'react-hot-toast';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import Chatroom from './features/chat/Chatroom';
@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools />
+            {/* <ReactQueryDevtools /> */}
             <BrowserRouter>
                 <Routes>
                     <Route

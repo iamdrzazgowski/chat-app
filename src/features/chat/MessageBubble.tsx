@@ -1,4 +1,10 @@
-export default function MessageBubble({ message, isCurrentUser }) {
+import type { MessageBubbleProps } from '../../types/props';
+
+export default function MessageBubble({
+    message,
+    isCurrentUser,
+}: MessageBubbleProps) {
+    console.log(message, isCurrentUser);
     return (
         <div
             className={`flex mb-4 ${

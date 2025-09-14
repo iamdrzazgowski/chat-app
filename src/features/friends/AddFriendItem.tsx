@@ -1,6 +1,20 @@
 import useAddFriend from './useAddFriend';
 
-export default function AddFriendItem({ friend, onCloseModal }) {
+type Friend = {
+    id: string;
+    avatar_url?: string;
+    fullName: string;
+};
+
+interface AddFriendItemProps {
+    friend: Friend;
+    onCloseModal: () => void;
+}
+
+export default function AddFriendItem({
+    friend,
+    onCloseModal,
+}: AddFriendItemProps) {
     const { addFriend, isLoading } = useAddFriend();
 
     const handleClick = () => {

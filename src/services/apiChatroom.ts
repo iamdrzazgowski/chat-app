@@ -44,7 +44,7 @@ export async function createOrGetChat(friendId: string) {
                 { chat_id: newChat.id, user_id: userId },
                 { chat_id: newChat.id, user_id: friendId },
             ],
-            { onConflict: ['chat_id', 'user_id'] } // tablica kolumn, nie nazwa constraintu
+            { onConflict: 'chat_id,user_id' } // kolumny jako string rozdzielony przecinkiem
         );
 
     if (participantsError) throw participantsError;
