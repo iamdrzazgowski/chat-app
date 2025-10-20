@@ -23,6 +23,7 @@ export function useMessagesSubscription(chatId: string) {
                     filter: `chat_id=eq.${chatId}`,
                 },
                 async (payload) => {
+                    console.log(payload);
                     // 1. Pobieramy profil dla nowej wiadomości
                     const { data: profile, error: profileError } =
                         await supabase

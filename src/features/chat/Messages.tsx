@@ -12,6 +12,7 @@ export default function Messages() {
 
     const { messages } = useMessages(String(chatId));
     useMessagesSubscription(String(chatId));
+    console.log(messages);
 
     useEffect(() => {
         endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
